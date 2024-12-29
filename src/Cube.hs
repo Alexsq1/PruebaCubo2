@@ -4,12 +4,9 @@ import Data.Group
 import Data.List
 import Utils
 import Moves
-{-Semigrupo: <>
-Monoide: + elem neutro
-Grupo: + elem inverso
--}
 
-data Piece = Edge | Corner | Center deriving (Show, Eq)
+
+--Definición y codificación de datos: Cubo como grupo
 
 newtype Cube = C [Int] deriving (Show, Eq)
 --Un cubo son 54 nums (0-53) usar base 64 en el futuro
@@ -24,6 +21,9 @@ instance Monoid Cube where
 instance Group Cube where
     invert (C xs) = C(invert_perm xs)
 
+
+--auxiliares de grupo
+
 solved :: Cube -> Bool
 solved = (== mempty)
 
@@ -31,6 +31,7 @@ solved = (== mempty)
 perm :: [a] -> [Int] -> [a]
 perm xs ys = map (\x -> xs !! x) ys
 
+--Permutación inversa
 invert_perm :: [Int] -> [Int]
 invert_perm xs = map fst tups_ord
     where
@@ -38,8 +39,12 @@ invert_perm xs = map fst tups_ord
         tups = zip (neutral) xs 
         tups_ord = sort_by_snd tups
 
-validPiece :: Int -> Bool
-validPiece n = inRange n 0 53
+
+
+--Definición de datos: piezas individuales 
+--Con idea de permitir saber si una pieza está orientada, permutada, ambos (revisar)
+
+data Piece = Edge | Corner | Center deriving (Show, Eq)
 
 typeOfPiece :: Int -> Piece
 typeOfPiece n
@@ -47,6 +52,9 @@ typeOfPiece n
     | inRange n 24 47 = Edge
     | inRange n 48 53 = Center
     | otherwise = error "Valor no válido"
+
+validPiece :: Int -> Bool
+validPiece n = inRange n 0 53
     
 pieceSolved :: Int -> Cube -> Bool
 pieceSolved n (C xs) = n == (xs !! n)
@@ -65,6 +73,10 @@ pieceOriented n (C xs)
             tp = typeOfPiece n
             pInPlace = xs !! n
 
+
+--Estado válido y resoluble
+--Codificar bien, faltan muchas restricciones
+
 validState :: Cube -> Bool
 validState (C xs) = (uniqueElems xs) && 
                 (isPermutation lCorners [0..23]) && 
@@ -75,7 +87,7 @@ validState (C xs) = (uniqueElems xs) &&
         lEdges = adjSublist xs 24 47
         lCenters = adjSublist xs 48 53
 
---Codificar bien si un estado es válido y resoluble
+--Desde algoritmo a permutación:
 
 basicMoveToPerm :: BasicMove -> Cube
 
@@ -86,8 +98,7 @@ basicMoveToPerm L = C[5,3,4,19,20,18,6,7,8,9,10,11,12,13,14,15,16,17,23,21,22,1,
 basicMoveToPerm D = C[0,1,2,3,4,5,6,7,8,9,10,11,21,22,23,12,13,14,15,16,17,18,19,20,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,46,47,40,41,42,43,44,45,48,49,50,51,52,53]
 basicMoveToPerm B = C[0,1,2,8,6,7,16,17,15,9,10,11,12,13,14,20,18,19,4,5,3,21,22,23,24,25,37,36,28,29,30,31,32,33,34,35,45,44,27,26,40,41,42,43,39,38,46,47,48,49,50,51,52,53]
 --ver si tiene sentido ejecutar solo los simples o guardar las perms de todos los giros individuales
-
-
+basicMoveToPerm x = error "Movimiento no existente"
 
 
 moveToPerm :: Move -> Cube

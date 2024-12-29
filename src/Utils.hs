@@ -26,7 +26,7 @@ sort_by_snd :: Ord b => [(a,b)] -> [(a,b)]
 sort_by_snd xs = sortBy (compare `on` snd) xs
 
 inRange :: Int -> Int -> Int -> Bool
-inRange x min max = x <= max && x >= min
+inRange x mini maxi = x <= maxi && x >= mini
 
 swap :: Int -> Int -> [a] -> [a]
 swap a b xs

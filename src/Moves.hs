@@ -3,12 +3,24 @@ module Moves where
 import Data.Group
 import Utils
 
+
+--Codificación de los datos
+
 data BasicMove = N | R | U | F | L | D | B deriving (Show, Eq, Read, Enum)
 --N es neutro, no hacer ningún giro
 --añadir giros de capas intermedias y rotaciones?
 
 type Move = (BasicMove, Int)
 data Algorithm = Alg [Move] deriving (Eq)
+
+{-Idea: Move que sea un newType
+Va a ser todo mucho más sencillo
+Derivar Eq
+implementar Show, Read
+implementarlo como grupo:
+    op binaria, -> No es interna
+    neutro e inverso
+-}
 
 instance Show Algorithm where
     show (Alg xs) = if (null xs) then "[]" else showCutreMovs xs
@@ -23,7 +35,7 @@ showCutreMovs (x:xs) = (show mov) ++ (showCutreNum n) ++ " " ++ (showCutreMovs x
             | n == 3 = "'"
             | otherwise = ""
 
---buscar preprocesado de String, y que Read haga uso
+--buscar preprocesado de String, y que Read haga uso (veo poco futuro)
 
 preprocessString :: String -> String
 preprocessString xs = toCanonicAlg primes
@@ -59,7 +71,7 @@ instance Read Move where
 No tengo ni idea de cómo implementar el Read para un algoritmo
 -}
 
-
+--Codificación de algoritmo como grupo
 
 instance Semigroup Algorithm where
     Alg (a1) <> Alg (a2) = Alg(simpAlg (a1 ++ a2))
@@ -71,6 +83,7 @@ instance Group Algorithm where
     invert (Alg xs) = Alg(invMovs xs)
 
 
+--Funciones auxiliares para grupo de algoritmo (inverso, simplificación de moves...)
 
 twoMoves :: Move -> Move -> [Move]
 twoMoves mov1 mov2
@@ -89,6 +102,7 @@ simp1Move :: Move -> Move
 simp1Move (m, n) 
     | ((n `mod` 4) == 0 || m == N) = (N, 0)
     | otherwise = (m, n `mod` 4)
+
 
 
 simpAlg :: [Move] -> [Move]
@@ -120,4 +134,9 @@ invMovs [] = []
 invMovs (x:xs) = invMovs (xs) ++ [invOneMov x]
 
 
+listPossibleMoves :: [Move]
+listPossibleMoves = (N, 0) : zip xs (i 1) ++ zip xs (i 2) ++ zip xs (i 3)
+    where 
+        xs = [R .. ]
+        i = replicate (length xs)
 
