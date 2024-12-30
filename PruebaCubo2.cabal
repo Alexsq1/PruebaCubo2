@@ -70,9 +70,6 @@ library
     -- Other library packages from which modules are imported.
     build-depends:      base >=4.21.0.0, 
                         groups >= 0.5,
-                        --PruebaCubo2,
-                        QuickCheck > 2.0,
-                       -- cabal-test-quickcheck > 0.1, 
                         Cabal >= 3.0
 
     -- Directories containing source files.
@@ -128,7 +125,9 @@ test-suite PruebaCubo2-test
     -- The entrypoint to the test suite.
     main-is:          Main.hs
 
-    other-modules: Utils, Cube, Moves, MyLib, AlgToCube
+    other-modules: 
+                      Utils, Cube, Moves, MyLib, AlgToCube,
+                      PBTCube, PBTMoves, PBTAlgToCube
 
     -- Test dependencies.
     build-depends:
@@ -136,6 +135,5 @@ test-suite PruebaCubo2-test
         groups >= 0.5,
         PruebaCubo2,
         QuickCheck > 2.0,
-        --cabal-test-quickcheck > 0.1, 
         Cabal >= 3.0
 
