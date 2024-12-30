@@ -4,11 +4,18 @@ import Moves
 import Cube
 
 
+{-
+Este módulo implementa las permutaciones 
+que ejecutan los algoritmos.
+Es decir un algoritmo (R U R' U') efectúa
+una permutación de piezas.
+-}
 
 
 
 
---Desde algoritmo a permutación:
+
+--Calcular la permutación que hace un movimiento:
 
 basicMoveToPerm :: BasicMove -> Cube
 
@@ -30,5 +37,6 @@ moveToPerm (M(mov, num)) = (xs !! num)
         xs = iterate (\x -> x <> ini) mempty
         --revisar si tiene sentido basarse en giros simples o directamente apuntar todos
 
+--Calcula la permutación que hace un algoritmo
 algToPerm :: Algorithm -> Cube
 algToPerm (Alg xs) = foldr (<>) mempty (map moveToPerm xs)

@@ -10,4 +10,7 @@ someFunc = do
     putStrLn ("xs = " ++ (show xs))
     putStrLn $ show (algToPerm xs)
 
-    where xs = read "R2 U2 F' R R R R  D2 D L F2 F2 F2 " :: Algorithm
+    where 
+        strAlg = "F8 R2 U2 F' R R R R  D2 D L F2 F2 F2 " 
+        xs = read strAlg :: Algorithm
+        

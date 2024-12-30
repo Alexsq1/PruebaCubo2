@@ -39,10 +39,8 @@ inversodoble c = ( (invert . invert) c) === c
 
 {-
 PROBAR
-conds de grupo acíclico de cada mov (conmutatividad, 4 veces da resuelto)
-algs que den resuelto
-
-props matemáticas de grupos (orden)
+props matemáticas de grupos (orden), algoritmos que resuelven,
+...
 -}
 
 

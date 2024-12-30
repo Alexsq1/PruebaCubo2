@@ -7,8 +7,9 @@ import Data.Group
 
 testMoves :: IO ()
 testMoves = do 
-    quickCheck ( invOneMoveProp1)
-    quickCheck ( invOneMoveProp2)
+    --quickCheck ( invOneMoveProp1)
+    quickCheck ( invOneMoveProp)
+    quickCheck ( evenCanonic)
     quickCheck ( asociatividad)
     quickCheck ( neutro1)
     quickCheck ( neutro2)    
@@ -17,15 +18,22 @@ testMoves = do
 
 
 
-invOneMoveProp1 :: Move -> Property
-invOneMoveProp1 m = (length (twoMoves m (invOneMov m)) === 1)
+--invOneMoveProp1 :: Move -> Property
+--invOneMoveProp1 m = (length (twoMoves m (invOneMov m)) === 1)
 
-invOneMoveProp2 :: Move -> Property
-invOneMoveProp2 m = (head (twoMoves m (invOneMov m)) === M(N,0))
+invOneMoveProp :: Move -> Property
+invOneMoveProp m = (twoMoves m (invOneMov m) === [M(N,0)])
 
+evenCanonic :: Algorithm -> Bool
+evenCanonic (Alg alg) = even (length $ canonicalizar $ show alg)
 
 asociatividad :: Algorithm -> Algorithm -> Algorithm -> Property
 asociatividad a1 a2 a3 = (a1 <> (a2 <> a3)) === ((a1 <> a2) <> a3)
+
+concatSimplifies :: Algorithm -> Algorithm -> Bool
+concatSimplifies alg1 alg2 = 
+    (lengthAlg (alg1 <> alg2)) <= 
+        ((lengthAlg alg1) + (lengthAlg alg2))
 
 neutro1 :: Algorithm -> Property
 neutro1 a = (a <> mempty) === a
