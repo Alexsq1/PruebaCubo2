@@ -22,7 +22,7 @@ testMoves = do
 --invOneMoveProp1 m = (length (twoMoves m (invOneMov m)) === 1)
 
 invOneMoveProp :: Move -> Property
-invOneMoveProp m = (twoMoves m (invOneMov m) === [M(N,0)])
+invOneMoveProp m = (twoMoves m (invOneMov m) === [])
 
 evenCanonic :: Algorithm -> Bool
 evenCanonic (Alg alg) = even (length $ canonicalizar $ show alg)

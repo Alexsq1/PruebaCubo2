@@ -6,11 +6,10 @@ import AlgToCube
 someFunc :: IO ()
 someFunc = do
     putStrLn "Probando src/MyLib"
-    putStrLn "Haciendo un moveToPerms de xs"
-    putStrLn ("xs = " ++ (show xs))
-    putStrLn $ show (algToPerm xs)
+    putStrLn "Haciendo un moveToPerms de algorithm1"
+    putStrLn ("algorithm1 = " ++ (show algorithm1))
+
 
     where 
-        strAlg = "F8 R2 U2 F' R R R R  D2 D L F2 F2 F2 " 
-        xs = read strAlg :: Algorithm
-        
+        strAlg = "F8 R2 U2 F' R L R L R L R  L D2 D L F2 F2 F2 " 
+        algorithm1 = read strAlg :: Algorithm
