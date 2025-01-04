@@ -59,7 +59,7 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  MyLib, Cube, Moves, AlgToCube, ValidCube
+    exposed-modules:  MyLib, Cube, Moves, GenMoves, AlgToCube, ValidCube
 
     -- Modules included in this library but not exported.
     other-modules: Utils
@@ -126,7 +126,7 @@ test-suite PruebaCubo2-test
     main-is:          Main.hs
 
     other-modules: 
-                      Utils, Cube, Moves, MyLib, AlgToCube, ValidCube,
+                      Utils, Cube, Moves, GenMoves, MyLib, AlgToCube, ValidCube,
                       PBTCube, PBTMoves, PBTAlgToCube
 
     -- Test dependencies.

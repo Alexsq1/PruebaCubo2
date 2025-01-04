@@ -2,7 +2,7 @@ module Moves where
 
 import Data.Group
 import Data.List
-import Utils
+--import Utils
 
 {-
 Este módulo implementa el dato Algorithm,
@@ -62,10 +62,6 @@ instance Show Move where
                 | otherwise = ""
 
 
-listPossibleMoves :: [Move]
-listPossibleMoves = map simp1Move [M(m, n) | m <- [N ..], n <- [0 .. 3]]
---Hacer más: según giros dobles, capas, ejes... 
-
 
 --Codificación de operaciones de 1 Move:
 {-
@@ -112,7 +108,7 @@ simp1Move (M(m, n))
 isNull :: Move -> Bool
 isNull m = newMove == N
     where 
-        M(newMove, num) = simp1Move m
+        M(newMove, _) = simp1Move m
 
 
 recupBM :: Move -> BasicMove
@@ -142,6 +138,7 @@ axisOrd ax move
     | (ax == UD) && (move == D) = GT
     | (ax == FB) && (move == F) = LT
     | (ax == FB) && (move == B) = GT
+    | otherwise = LT
 
 
 
@@ -166,6 +163,7 @@ instance Read Algorithm where
 staticReadAlg :: String -> Algorithm
 staticReadAlg "" = Alg[]
 staticReadAlg (x:y:xs) = Alg[read ([x] ++ [y])] <> staticReadAlg xs
+staticReadAlg (_:_) = error "Canonicalizar falló, no longitud par"
 
 --Usar <> porque va simplificando.
 
