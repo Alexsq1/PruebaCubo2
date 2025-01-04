@@ -4,6 +4,7 @@ module Main (main) where
 import PBTCube
 import PBTMoves
 import PBTAlgToCube
+import PBTGenMoves
 
 
 main :: IO ()
@@ -18,3 +19,5 @@ main = do
   putStrLn "Running tests of AlgToCube"
   testAlgToCube
 
+  putStrLn "Running tests of GenMoves"
+  testGenMoves

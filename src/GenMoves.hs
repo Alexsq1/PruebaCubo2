@@ -6,10 +6,10 @@ import Utils
 --Generar movimientos sueltos
 
 genMovesLayersInt :: [BasicMove] -> [Int] -> [Move]
-genMovesLayersInt bms nums = [(simp1Move (M(m, n))) | m <- bmsPost, n <- numsPost]
+genMovesLayersInt layers nums = [(simp1Move (M(m, n))) | m <- layersPost, n <- numsPost]
     where
-        bmsPost = ((\xs -> remove xs N ) . removeDups) bms
-        numsPost = removeDups nums
+        layersPost = (removeDups . filter (/= N)) layers
+        numsPost = (removeDups . filter (> 0) . map (flip mod 4)) nums 
 
 listPossibleMoves :: [Move]
 listPossibleMoves = genMovesLayersInt [N .. ] [1 .. 3]

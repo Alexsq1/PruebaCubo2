@@ -2,6 +2,7 @@ module PBTMoves (testMoves) where
 
 import Test.QuickCheck
 import Moves
+import GenMoves
 import Data.Group
 
 
@@ -10,11 +11,14 @@ testMoves = do
     --quickCheck ( invOneMoveProp1)
     quickCheck ( invOneMoveProp)
     quickCheck ( evenCanonic)
-    quickCheck ( asociatividad)
-    quickCheck ( neutro1)
-    quickCheck ( neutro2)    
-    quickCheck ( inverso1)
-    quickCheck ( inverso2)
+
+    quickCheck (withMaxSuccess 1000 asociatividad)
+    quickCheck ( concatSimplifies)
+    
+    quickCheck (withMaxSuccess 1000 neutro1)
+    quickCheck (withMaxSuccess 1000 neutro2)
+    quickCheck (withMaxSuccess 1000 inverso1)
+    quickCheck (withMaxSuccess 1000 inverso2)
 
 
 

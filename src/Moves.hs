@@ -200,9 +200,21 @@ instance Semigroup Algorithm where
 --Cuidado: simpAdj usa init-last, puede que sea O(n^2)
 
 --Simplificaciones de algoritmos (adyacentes y paralelos)
-simpFullAlg :: [Move] -> [Move]
-simpFullAlg = (simpParalels . simpAdj)
+--Error: puede que haya que simplificar más veces
 
+{-
+    F2 R R R2 B2 F2    = [B2] (adj -> paralels)
+    R F2 B2 F2 B2 R' = []   (paralels -> adj)
+    
+
+-}
+
+
+simpFullAlg :: [Move] -> [Move]
+--simpFullAlg = (simpParalels . simpAdj)
+simpFullAlg xs = if (length xs == length simpCurr) then simpCurr else (simpFullAlg simpCurr)
+    where 
+        simpCurr = (simpParalels . simpAdj) xs
 
 simpAdj :: [Move] -> [Move]
 simpAdj = foldl myFunctionConcat []
