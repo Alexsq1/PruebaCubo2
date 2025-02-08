@@ -17,6 +17,8 @@ someFunc = do
     putStrLn (show (iddfs (algToPerm algorithm1)))
     putStrLn (show (iddfs (algToPerm algorithm2)))
     putStrLn (show (iddfs (algToPerm algorithm3)))
+    --putStrLn (show (iddfs (algToPerm algorithm4)))
+    --putStrLn (show (iddfs (algToPerm algorithm5)))
 
 
 
@@ -30,4 +32,15 @@ someFunc = do
         
         strAlg3 = "R2 U2 F2 L' R D2" --1 minuto aprox
         algorithm3 = read strAlg3 :: Algorithm
-        
+
+        --strAlg4 = "R2 U2 F2 L' R D2 L" --10
+        --algorithm4 = read strAlg4 :: Algorithm
+--
+        --strAlg5 = "R2 U2 F2 L' R D2 L U2" --1 minuto aprox
+        --algorithm5 = read strAlg5 :: Algorithm
+
+{-
+<= 5 moves : inmediato
+6 moves: 1 min
+7 moves: 11.5 mins
+-}

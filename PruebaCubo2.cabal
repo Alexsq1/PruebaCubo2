@@ -59,7 +59,7 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  MyLib, Cube, Moves, GenMoves, AlgToCube, ValidCube
+    exposed-modules:  MyLib, Cube, Moves, GenMoves, AlgToCube, ValidCube, Solver
 
     -- Modules included in this library but not exported.
     other-modules: Utils
@@ -69,7 +69,8 @@ library
 
     -- Other library packages from which modules are imported.
     build-depends:      base >=4.21.0.0, 
-                        groups >= 0.5,
+                        groups >= 0.5,        
+                        containers >= 0.7,
                         Cabal >= 3.0
 
     -- Directories containing source files.
@@ -84,9 +85,15 @@ executable PruebaCubo2
 
     -- .hs or .lhs file containing the Main module.
     main-is:          Main.hs
+    ghc-options: -O2
+--    ghc-options:      -O2 -optc-O3 -XStrict -fprof-auto
+--    ghc-options: -O2 -prof -fprof-auto    --> han dado fallos, compilados con reinstall
+--    ghc-options: -O2 -fhpc
+--Cuidado con code coverage: Hay que llevar el .tix a /.hpc. Después, desde root del proyecto, ejecutar el report
+--      ghc-options: -threaded -eventlog        -- funciona de locos
 
     -- Modules included in this executable, other than Main.
-    --other-modules: MyLib, Cube, Moves, Utils, AlgToCube
+    --other-modules: MyLib, Cube, Moves, Utils, AlgToCube, Solver
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -95,6 +102,7 @@ executable PruebaCubo2
     build-depends:
         base >=4.21.0.0,
         groups >= 0.5,
+        containers >= 0.7,
         PruebaCubo2
 
     -- Directories containing source files.
@@ -126,13 +134,14 @@ test-suite PruebaCubo2-test
     main-is:          Main.hs
 
     other-modules: 
-                      Utils, Cube, Moves, GenMoves, MyLib, AlgToCube, ValidCube,
+                      Utils, Cube, Moves, GenMoves, MyLib, AlgToCube, ValidCube, Solver,
                       PBTCube, PBTMoves, PBTAlgToCube, PBTGenMoves
 
     -- Test dependencies.
     build-depends:
         base >=4.21.0.0,
         groups >= 0.5,
+        containers >= 0.7,
         PruebaCubo2,
         QuickCheck > 2.0,
         Cabal >= 3.0

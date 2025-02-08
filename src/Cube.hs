@@ -51,8 +51,13 @@ invert_perm xs = map fst tups_ord
         tups = zip (neutral) xs 
         tups_ord = sort_by_snd tups
 
-
-
+instance Ord Cube where
+    --compare :: Cube -> Cube -> Ordering
+    compare (C []) (C []) = EQ
+    compare (C [x]) (C [y]) = EQ
+    compare (C (x:xs)) (C (y:ys))
+        | x == y = (compare (C xs) (C ys))
+        | otherwise = compare x y
 
 
 
