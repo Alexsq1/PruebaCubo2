@@ -38,5 +38,6 @@ moveToPerm (M(mov, num)) = (xs !! num)
         --revisar si tiene sentido basarse en giros simples o directamente apuntar todos
 
 --Calcula la permutación que hace un algoritmo
+--(Esto es un mappend)
 algToPerm :: Algorithm -> Cube
 algToPerm (Alg xs) = foldr (<>) mempty (map moveToPerm xs)

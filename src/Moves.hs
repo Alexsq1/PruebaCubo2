@@ -20,7 +20,7 @@ y propiedades (grupo).
 
 -}
 
-data BasicMove = N | R | U | F | L | D | B deriving (Show, Eq, Read, Enum)
+data BasicMove = N | R | U | F | L | D | B deriving (Show, Eq, Ord, Read, Enum)
 --N es neutro, no hacer ningún giro
 --añadir giros de capas intermedias y rotaciones?
 
